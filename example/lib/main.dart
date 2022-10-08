@@ -55,8 +55,12 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n${sayHello()}'),
-        ),
+            child: Column(
+          children: [
+            Text('Running on: $_platformVersion\n'),
+            Text('typs_int32: ${typeInt32()}'),
+          ],
+        )),
       ),
     );
   }
