@@ -28,12 +28,18 @@ class _MyAppState extends State<MyApp> {
   Pointer<Person> personTwo =
       initPersonPointer("man".toNativeUtf8().cast<Int8>(), 33, 66.6, 172.6);
 
+  var diffTime = 0;
+
   void _doubleAge() {
     setState(() {
-      changePersonAge(personTwo);
-      if (personTwo.ref.age == 0 || personTwo.ref.age < 0) {
-        personTwo.ref.age = 1;
+      var ts = DateTime.now();
+      for (var i = 0; i < 20; i++) {
+        changePersonAge(personTwo);
+        if (personTwo.ref.age == 0 || personTwo.ref.age < 0) {
+          personTwo.ref.age = 1;
+        }
       }
+      diffTime = DateTime.now().difference(ts).inMicroseconds;
     });
   }
 
@@ -109,6 +115,14 @@ class _MyAppState extends State<MyApp> {
             ),
             Text(
               '${personTwo.ref.age}',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            const Text(
+              '该函数执行20次用时为 \n',
+              style: TextStyle(fontSize: 20),
+            ),
+            Text(
+              '$diffTime 微秒',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
