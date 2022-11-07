@@ -22,38 +22,20 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _cppPluginTestPlugin = CppPluginTest();
 
-  Person personOne =
-      initPerson("Baby".toNativeUtf8().cast<Int8>(), 2, 12.2, 34.2);
+  Pointer<Person> person = init();
 
-  Pointer<Person> personTwo =
-      initPersonPointer("man".toNativeUtf8().cast<Int8>(), 33, 66.6, 172.6);
-
-  var diffTime = 0;
-
-  void _doubleAge() {
-    setState(() {
-      var ts = DateTime.now();
-      for (var i = 0; i < 20; i++) {
-        changePersonAge(personTwo);
-        if (personTwo.ref.age == 0 || personTwo.ref.age < 0) {
-          personTwo.ref.age = 1;
-        }
-      }
-      diffTime = DateTime.now().difference(ts).inMicroseconds;
-    });
-  }
+  var controller;
 
   @override
   void initState() {
     super.initState();
+    controller = TextEditingController();
+    controller.addListener(() {});
     initPlatformState();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
     try {
       platformVersion = await _cppPluginTestPlugin.getPlatformVersion() ??
           'Unknown platform version';
@@ -61,9 +43,6 @@ class _MyAppState extends State<MyApp> {
       platformVersion = 'Failed to get platform version.';
     }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) return;
 
     setState(() {
@@ -83,55 +62,75 @@ class _MyAppState extends State<MyApp> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Running on: $_platformVersion\n'),
-            // Text('typs_int8: ${typeInt8()}\n'),
-            // Text('typs_int16: ${typeInt16()}\n'),
-            // Text('typs_int32: ${typeInt32()}\n'),
-            // Text('typs_int64: ${typeInt64()}\n'),
-            // Text('typs_uint8: ${typeUint8()}\n'),
-            // Text('typs_uint16: ${typeUint16()}\n'),
-            // Text('typs_uint32: ${typeUint32()}\n'),
-            // Text('typs_uint64: ${typeUint64()}\n'),
-            // Text('typs_int: ${typeInt()}\n'),
-            // Text('typs_long: ${typeLong()}\n'),
-            // Text('typs_long_long: ${typeLongLong()}\n'),
-            // Text('typs_short: ${typeShort()}\n'),
-            // Text('typs_unsigned_int: ${typeUnsignedInt()}\n'),
-            // Text('typs_unsigned_long: ${typeUnsignedLong()}\n'),
-            // Text('typs_unsigned_long_long: ${typeUnsignedLongLong()}\n'),
-            // Text('typs_unsigned_short: ${typeUnsignedShort()}\n'),
-            Text(
-                'personOneName = ${personOne.name.cast<Utf8>().toDartString()}\n'),
-            Text('personOneAge = ${personOne.age}\n'),
-            Text('personOneWeight = ${personOne.weight}\n'),
-            Text('personOneHeight = ${personOne.height}\n'),
-            Text(
-                '(Pointer) personTwoName = ${personTwo.ref.name.cast<Utf8>().toDartString()}\n'),
-            Text('(Pointer) personTwoAge = ${personTwo.ref.age}\n'),
-            Text('(Pointer) personTwoWeight = ${personTwo.ref.weight}\n'),
-            Text('(Pointer) personTwoHeight = ${personTwo.ref.height}\n'),
-            const Text(
-              'after change personTwoAge, now age is \n',
-              style: TextStyle(fontSize: 20),
+            TextField(
+              controller: controller,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                ),
+              ),
             ),
-            Text(
-              '${personTwo.ref.age}',
-              style: Theme.of(context).textTheme.headline4,
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                    'personName = ${getPersonName().cast<Utf8>().toDartString()}\n'),
+                OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      var tempName = "";
+                      tempName += controller.text;
+                      setPersonName(tempName.toNativeUtf8().cast<Int8>());
+                    });
+                  },
+                  child: const Text("New Name"),
+                ),
+              ],
             ),
-            const Text(
-              '该函数执行20次用时为 \n',
-              style: TextStyle(fontSize: 20),
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('personAge = ${getPersonAge()}\n'),
+                OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      setPersonAge(person.ref.age + 1);
+                    });
+                  },
+                  child: const Text("Add Age"),
+                ),
+              ],
             ),
-            Text(
-              '$diffTime 微秒',
-              style: Theme.of(context).textTheme.headline4,
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('personWeight = ${getPersonWeight()}\n'),
+                OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      setPersonWeight(person.ref.weight + 1.5);
+                    });
+                  },
+                  child: const Text("Add Weight"),
+                ),
+              ],
+            ),
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('personHeight = ${getPersonHeight()}\n'),
+                OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      setPersonHeight(person.ref.height + 1.5);
+                    });
+                  },
+                  child: const Text("Add Height"),
+                ),
+              ],
             ),
           ],
         )),
-        floatingActionButton: FloatingActionButton(
-          onPressed: _doubleAge,
-          tooltip: 'add Age',
-          child: const Icon(Icons.add),
-        ), //
       ),
     );
   }
