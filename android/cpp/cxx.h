@@ -12,6 +12,7 @@ private:
   int m_age;
   double m_weight;
   double m_height;
+  bool m_flag;
 
 public:
   static Cxx *getInstance();
@@ -24,4 +25,6 @@ public:
   double getWeight();
   void setHeight(double height);
   double getHeight();
+  void setFlag();
+  bool getFlag();
 };

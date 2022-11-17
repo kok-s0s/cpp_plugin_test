@@ -7,23 +7,6 @@ final DynamicLibrary cxxToFFILib = Platform.isAndroid
     ? DynamicLibrary.open("libcxxToFFI.so")
     : DynamicLibrary.process();
 
-class Person extends Struct {
-  external Pointer<Int8> name;
-
-  @Int32()
-  external int age;
-
-  @Double()
-  external double weight;
-
-  @Double()
-  external double height;
-}
-
-final Pointer<Person> Function() init = cxxToFFILib
-    .lookup<NativeFunction<Pointer<Person> Function()>>("init")
-    .asFunction();
-
 final void Function(Pointer<Int8> name) setPersonName = cxxToFFILib
     .lookup<NativeFunction<Void Function(Pointer<Int8> name)>>("setPersonName")
     .asFunction();
@@ -55,6 +38,12 @@ final void Function(double height) setPersonHeight = cxxToFFILib
 final double Function() getPersonHeight = cxxToFFILib
     .lookup<NativeFunction<Double Function()>>("getPersonHeight")
     .asFunction();
+
+final void Function() setFlag =
+    cxxToFFILib.lookup<NativeFunction<Void Function()>>("setFlag").asFunction();
+
+final bool Function() getFlag =
+    cxxToFFILib.lookup<NativeFunction<Bool Function()>>("getFlag").asFunction();
 
 class CppPluginTest {
   Future<String?> getPlatformVersion() {

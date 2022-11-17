@@ -1,20 +1,9 @@
 #include "cxxToFFI.h"
 #include <string>
 
-Cxx *cxx = Cxx::getInstance();
-auto *person = (Person *)new Person;
-
-Person *init() {
-  std::string *tempName = cxx->getName();
-  person->name = (char *)tempName->c_str();
-  person->age = cxx->getAge();
-  person->weight = cxx->getWeight();
-  person->height = cxx->getHeight();
-  return person;
-}
+Cxx *cxx = Cxx::getInstance(); // 单列模式
 
 void setPersonName(char *name) {
-  person->name = name;
   std::string tempName = name;
   cxx->setName(tempName);
 }
@@ -24,23 +13,18 @@ char *getPersonName() {
   return (char *)tempName->c_str();
 }
 
-void setPersonAge(int age) {
-  person->age = age;
-  cxx->setAge(person->age);
-}
+void setPersonAge(int age) { cxx->setAge(person->age); }
 
 int getPersonAge() { return cxx->getAge(); }
 
-void setPersonWeight(double weight) {
-  person->weight = weight;
-  cxx->setWeight(person->weight);
-}
+void setPersonWeight(double weight) { cxx->setWeight(person->weight); }
 
 double getPersonWeight() { return cxx->getWeight(); }
 
-void setPersonHeight(double height) {
-  person->height = height;
-  cxx->setHeight(person->height);
-}
+void setPersonHeight(double height) { cxx->setHeight(person->height); }
 
 double getPersonHeight() { return cxx->getHeight(); }
+
+void setFlag() { cxx->setFlag(); }
+
+bool getFlag() { return cxx->getFlag(); }

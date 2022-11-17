@@ -33,3 +33,7 @@ double Cxx::getWeight() { return m_weight; }
 void Cxx::setHeight(double height) { m_height = height; }
 
 double Cxx::getHeight() { return m_height; }
+
+void Cxx::setFlag() { m_flag = !m_flag; }
+
+bool Cxx::getFlag() { return m_flag; }

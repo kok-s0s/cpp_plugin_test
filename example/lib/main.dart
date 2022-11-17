@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'dart:ffi';
 import 'package:ffi/ffi.dart';
 
@@ -21,8 +23,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _cppPluginTestPlugin = CppPluginTest();
-
-  Pointer<Person> person = init();
 
   var controller;
 
@@ -62,73 +62,86 @@ class _MyAppState extends State<MyApp> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('Running on: $_platformVersion\n'),
-            // TextField(
-            //   controller: controller,
-            //   decoration: const InputDecoration(
-            //     border: OutlineInputBorder(
-            //       borderRadius: BorderRadius.all(Radius.circular(30)),
-            //     ),
-            //   ),
-            // ),
-            // ButtonBar(
-            //   alignment: MainAxisAlignment.spaceBetween,
-            //   children: <Widget>[
-            //     Text(
-            //         'personName = ${getPersonName().cast<Utf8>().toDartString()}\n'),
-            //     OutlinedButton(
-            //       onPressed: () {
-            //         setState(() {
-            //           var tempName = "";
-            //           tempName += controller.text;
-            //           setPersonName(tempName.toNativeUtf8().cast<Int8>());
-            //         });
-            //       },
-            //       child: const Text("New Name"),
-            //     ),
-            //   ],
-            // ),
-            // ButtonBar(
-            //   alignment: MainAxisAlignment.spaceBetween,
-            //   children: <Widget>[
-            //     Text('personAge = ${getPersonAge()}\n'),
-            //     OutlinedButton(
-            //       onPressed: () {
-            //         setState(() {
-            //           setPersonAge(person.ref.age + 1);
-            //         });
-            //       },
-            //       child: const Text("Add Age"),
-            //     ),
-            //   ],
-            // ),
-            // ButtonBar(
-            //   alignment: MainAxisAlignment.spaceBetween,
-            //   children: <Widget>[
-            //     Text('personWeight = ${getPersonWeight()}\n'),
-            //     OutlinedButton(
-            //       onPressed: () {
-            //         setState(() {
-            //           setPersonWeight(person.ref.weight + 1.5);
-            //         });
-            //       },
-            //       child: const Text("Add Weight"),
-            //     ),
-            //   ],
-            // ),
-            // ButtonBar(
-            //   alignment: MainAxisAlignment.spaceBetween,
-            //   children: <Widget>[
-            //     Text('personHeight = ${getPersonHeight()}\n'),
-            //     OutlinedButton(
-            //       onPressed: () {
-            //         setState(() {
-            //           setPersonHeight(person.ref.height + 1.5);
-            //         });
-            //       },
-            //       child: const Text("Add Height"),
-            //     ),
-            //   ],
-            // ),
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('${getFlag()}'),
+                OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      setFlag();
+                    });
+                  },
+                  child: const Text("Switch Status"),
+                ),
+              ],
+            ),
+            TextField(
+              controller: controller,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                ),
+              ),
+            ),
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('name = ${getPersonName().cast<Utf8>().toDartString()}\n'),
+                OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      var tempName = "";
+                      tempName += controller.text;
+                      setPersonName(tempName.toNativeUtf8().cast<Int8>());
+                    });
+                  },
+                  child: const Text("New Name"),
+                ),
+              ],
+            ),
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('age = ${getPersonAge()}\n'),
+                OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      setPersonAge(getPersonAge() + 1);
+                    });
+                  },
+                  child: const Text("Add Age"),
+                ),
+              ],
+            ),
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('weight = ${getPersonWeight()}\n'),
+                OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      setPersonWeight(getPersonWeight() + 1.5);
+                    });
+                  },
+                  child: const Text("Add Weight"),
+                ),
+              ],
+            ),
+            ButtonBar(
+              alignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('height = ${getPersonHeight()}\n'),
+                OutlinedButton(
+                  onPressed: () {
+                    setState(() {
+                      setPersonHeight(getPersonHeight() + 1.5);
+                    });
+                  },
+                  child: const Text("Add Height"),
+                ),
+              ],
+            ),
           ],
         )),
       ),
