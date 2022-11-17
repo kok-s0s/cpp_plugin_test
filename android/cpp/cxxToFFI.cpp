@@ -13,15 +13,15 @@ char *getPersonName() {
   return (char *)tempName->c_str();
 }
 
-void setPersonAge(int age) { cxx->setAge(person->age); }
+void setPersonAge(int age) { cxx->setAge(age); }
 
 int getPersonAge() { return cxx->getAge(); }
 
-void setPersonWeight(double weight) { cxx->setWeight(person->weight); }
+void setPersonWeight(double weight) { cxx->setWeight(weight); }
 
 double getPersonWeight() { return cxx->getWeight(); }
 
-void setPersonHeight(double height) { cxx->setHeight(person->height); }
+void setPersonHeight(double height) { cxx->setHeight(height); }
 
 double getPersonHeight() { return cxx->getHeight(); }
 

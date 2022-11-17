@@ -18,9 +18,9 @@ Cxx::Cxx() {
 
 Cxx::~Cxx() {}
 
-void Cxx::setName(string name) { m_name = name; }
+void Cxx::setName(std::string name) { m_name = name; }
 
-string *Cxx::getName() { return &m_name; }
+std::string *Cxx::getName() { return &m_name; }
 
 void Cxx::setAge(int age) { m_age = age; }
 
