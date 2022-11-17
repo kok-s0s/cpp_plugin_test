@@ -1,30 +1,29 @@
-#include <iostream>
 #include "cxx.h"
+#include <iostream>
 
-extern "C"
-{
-  typedef struct {
-    char * name;
-    int age;
-    double weight;
-    double height;
-  } Person;
+extern "C" {
+typedef struct {
+  char *name;
+  int age;
+  double weight;
+  double height;
+} Person;
 
-  Person *init();
+Person *init();
 
-  void setPersonName(char *name);
+void setPersonName(char *name);
 
-  char *getPersonName();
+char *getPersonName();
 
-  void setPersonAge(int age);
+void setPersonAge(int age);
 
-  int getPersonAge();
+int getPersonAge();
 
-  void setPersonWeight(double weight);
+void setPersonWeight(double weight);
 
-  double getPersonWeight();
+double getPersonWeight();
 
-  void setPersonHeight(double height);
+void setPersonHeight(double height);
 
-  double getPersonHeight();
+double getPersonHeight();
 }
