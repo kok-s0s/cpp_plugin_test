@@ -1,33 +1,24 @@
-#include "Person.h"
 #include <string>
-#include <thread>
 
-class Cxx {
+class Person {
 private:
-  static Cxx *m_self; // 单例模式
-  Cxx(const Cxx &) = delete;
-  Cxx &operator=(const Cxx &) = delete;
-  Cxx();
-  Person *m_person;
-  bool m_flag;
-  std::thread
-      m_dataProcessThread; // TODO：对象初始化时绑定指定函数，能后台持续执行，且线程的状态能被外部变量所影响
-  std::thread
-      m_sendMessageThread; // TODO：对象初始化时绑定指定函数，能后台持续执行，且线程的状态能被外部变量所影响
+  std::string m_name;
+  int m_age;
+  double m_weight;
+  double m_height;
 
 public:
   /**
-   * @brief Get the Instance object
+   * @brief Construct a new Person object
    *
-   * @return Cxx*
    */
-  static Cxx *getInstance();
+  Person();
 
   /**
-   * @brief Destroy the Cxx object
+   * @brief Destroy the Person object
    *
    */
-  ~Cxx();
+  ~Person();
 
   /**
    * @brief Set the Name object
@@ -84,18 +75,4 @@ public:
    * @return double
    */
   double getHeight();
-
-  /**
-   * @brief Set the Flag object
-   *
-   */
-  void setFlag();
-
-  /**
-   * @brief Get the Flag object
-   *
-   * @return true
-   * @return false
-   */
-  bool getFlag();
 };

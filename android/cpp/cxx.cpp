@@ -10,29 +10,27 @@ Cxx *Cxx::getInstance() {
 }
 
 Cxx::Cxx() {
-  m_name = "su";
-  m_age = 22;
-  m_weight = 52;
-  m_height = 166;
+  m_person = new Person();
+  m_flag = false;
 }
 
 Cxx::~Cxx() {}
 
-void Cxx::setName(std::string name) { m_name = name; }
+void Cxx::setName(std::string name) { m_person->setName(name); }
 
-std::string *Cxx::getName() { return &m_name; }
+std::string *Cxx::getName() { return m_person->getName(); }
 
-void Cxx::setAge(int age) { m_age = age; }
+void Cxx::setAge(int age) { m_person->setAge(age); }
 
-int Cxx::getAge() { return m_age; }
+int Cxx::getAge() { return m_person->getAge(); }
 
-void Cxx::setWeight(double weight) { m_weight = weight; }
+void Cxx::setWeight(double weight) { m_person->setWeight(weight); }
 
-double Cxx::getWeight() { return m_weight; }
+double Cxx::getWeight() { return m_person->getWeight(); }
 
-void Cxx::setHeight(double height) { m_height = height; }
+void Cxx::setHeight(double height) { m_person->setHeight(height); }
 
-double Cxx::getHeight() { return m_height; }
+double Cxx::getHeight() { return m_person->getHeight(); }
 
 void Cxx::setFlag() { m_flag = !m_flag; }
 

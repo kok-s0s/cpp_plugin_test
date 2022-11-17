@@ -1,4 +1,4 @@
-#include "cxxToFFI.h"
+#include "CxxToFFI.h"
 #include <string>
 
 Cxx *cxx = Cxx::getInstance(); // 单列模式
