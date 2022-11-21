@@ -1,4 +1,6 @@
 #include "Person.h"
+#include "SendMessage.h"
+#include <stack>
 #include <string>
 #include <thread>
 
@@ -10,10 +12,10 @@ private:
   Cxx();
   Person *m_person;
   bool m_flag;
-  std::thread
-      m_dataProcessThread; // TODO：对象初始化时绑定指定函数，能后台持续执行，且线程的状态能被外部变量所影响
-  std::thread
-      m_sendMessageThread; // TODO：对象初始化时绑定指定函数，能后台持续执行，且线程的状态能被外部变量所影响
+  SendMessage *m_sendMessage;
+  std::thread *m_sendMessageThread; // mock
+  std::thread *m_dataProcessThread; // mock
+  std::stack<int> m_stack;
 
 public:
   /**
@@ -28,6 +30,8 @@ public:
    *
    */
   ~Cxx();
+
+#pragma region Person Interface
 
   /**
    * @brief Set the Name object
@@ -85,6 +89,10 @@ public:
    */
   double getHeight();
 
+#pragma endregion
+
+#pragma region Thread Control
+
   /**
    * @brief Set the Flag object
    *
@@ -98,4 +106,18 @@ public:
    * @return false
    */
   bool getFlag();
+
+  /**
+   * @brief control this thread work status
+   *
+   */
+  void sendMessageThreadManager();
+
+  /**
+   * @brief control this thread work status
+   *
+   */
+  void dataProcessThreadManager();
+
+#pragma endregion
 };
